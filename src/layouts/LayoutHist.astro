@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="_csrf" content="ad58836b-fc54-4811-bbfa-9ebabc56fbe2">
+		<meta name="root" content="/alumnoWebSum/">
+		
+		<title>Sistema Único de Matrícula - Historial Académico</title>
+		<link rel="stylesheet" href="/bootstrap.min.css">
+		<link rel="stylesheet" href="/menu-full-page.css">
+		<!--<link rel="stylesheet" th:href="@{/css/feather.css}" />-->
+		<link rel="stylesheet" href="/all.min.css">
+		<!-- <link rel="stylesheet" th:href="@{/css/fontawesome.min.css}" /> -->
+		<link rel="stylesheet" href="/theme-white.css">
+        <!--<link rel="stylesheet" th:href="@{/css/pagina/animate.css}">-->
+        <link rel="stylesheet" href="/style.css">
+        <!--<link rel="stylesheet" th:href="@{/css/pagina/media-queries.css}">-->
+		<link rel="stylesheet" href="/main-pro.css">
+        
+		<link rel="icon" href="https://sum.unmsm.edu.pe/alumnoWebSum/image/logo.png" type="image/x-icon">
+		
+    <link href="/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="/buttons.dataTables.min.css" rel="stylesheet">
+    <link href="/apexcharts.css" rel="stylesheet">
+      
+    <style id="apexcharts-css">
+      @keyframes opaque {
+        0% {
+            opacity: 0
+        }
+
+        to {
+            opacity: 1
+        }
+      }
+
+      @keyframes resizeanim {
+        0%,to {
+            opacity: 0
+        }
+      }
+
+      .apexcharts-canvas {
+        position: relative;
+        user-select: none
+      }
+
+      .apexcharts-canvas ::-webkit-scrollbar {
+        -webkit-appearance: none;
+        width: 6px
+      }
+
+      .apexcharts-canvas ::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+        background-color: rgba(0,0,0,.5);
+        box-shadow: 0 0 1px rgba(255,255,255,.5);
+        -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5)
+      }
+
+      .apexcharts-inner {
+        position: relative
+      }
+
+      .apexcharts-text tspan {
+        font-family: inherit
+      }
+
+      .legend-mouseover-inactive {
+        transition: .15s ease all;
+        opacity: .2
+      }
+
+      .apexcharts-legend-text {
+        padding-left: 15px;
+        margin-left: -15px;
+      }
+
+      .apexcharts-series-collapsed {
+        opacity: 0
+      }
+
+      .apexcharts-tooltip {
+        border-radius: 5px;
+        box-shadow: 2px 2px 6px -4px #999;
+        cursor: default;
+        font-size: 14px;
+        left: 62px;
+        opacity: 0;
+        pointer-events: none;
+        position: absolute;
+        top: 20px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        white-space: nowrap;
+        z-index: 12;
+        transition: .15s ease all
+      }
+
+      .apexcharts-tooltip.apexcharts-active {
+        opacity: 1;
+        transition: .15s ease all
+      }
+
+      .apexcharts-tooltip.apexcharts-theme-light {
+        border: 1px solid #e3e3e3;
+        background: rgba(255,255,255,.96)
+      }
+
+      .apexcharts-tooltip.apexcharts-theme-dark {
+        color: #fff;
+        background: rgba(30,30,30,.8)
+      }
+
+      .apexcharts-tooltip * {
+        font-family: inherit
+      }
+
+      .apexcharts-tooltip-title {
+        padding: 6px;
+        font-size: 15px;
+        margin-bottom: 4px
+      }
+
+      .apexcharts-tooltip.apexcharts-theme-light .apexcharts-tooltip-title {
+        background: #eceff1;
+        border-bottom: 1px solid #ddd
+      }
+
+      .apexcharts-tooltip.apexcharts-theme-dark .apexcharts-tooltip-title {
+        background: rgba(0,0,0,.7);
+        border-bottom: 1px solid #333
+      }
+
+      .apexcharts-tooltip-text-goals-value,.apexcharts-tooltip-text-y-value,.apexcharts-tooltip-text-z-value {
+        display: inline-block;
+        margin-left: 5px;
+        font-weight: 600
+      }
+
+      .apexcharts-tooltip-text-goals-label:empty,.apexcharts-tooltip-text-goals-value:empty,.apexcharts-tooltip-text-y-label:empty,.apexcharts-tooltip-text-y-value:empty,.apexcharts-tooltip-text-z-value:empty,.apexcharts-tooltip-title:empty {
+        display: none
+      }
+
+      .apexcharts-tooltip-text-goals-label,.apexcharts-tooltip-text-goals-value {
+        padding: 6px 0 5px
+      }
+
+      .apexcharts-tooltip-goals-group,.apexcharts-tooltip-text-goals-label,.apexcharts-tooltip-text-goals-value {
+        display: flex
+      }
+
+      .apexcharts-tooltip-text-goals-label:not(:empty),.apexcharts-tooltip-text-goals-value:not(:empty) {
+        margin-top: -6px
+      }
+
+      .apexcharts-tooltip-marker {
+        width: 12px;
+        height: 12px;
+        position: relative;
+        top: 0;
+        margin-right: 10px;
+        border-radius: 50%
+      }
+
+      .apexcharts-tooltip-series-group {
+        padding: 0 10px;
+        display: none;
+        text-align: left;
+        justify-content: left;
+        align-items: center
+      }
+
+      .apexcharts-tooltip-series-group.apexcharts-active .apexcharts-tooltip-marker {
+        opacity: 1
+      }
+
+      .apexcharts-tooltip-series-group.apexcharts-active,.apexcharts-tooltip-series-group:last-child {
+        padding-bottom: 4px
+      }
+
+      .apexcharts-tooltip-series-group-hidden {
+        opacity: 0;
+        height: 0;
+        line-height: 0;
+        padding: 0!important
+      }
+
+      .apexcharts-tooltip-y-group {
+        padding: 6px 0 5px
+      }
+
+      .apexcharts-custom-tooltip,.apexcharts-tooltip-box {
+        padding: 4px 8px
+      }
+
+      .apexcharts-tooltip-boxPlot {
+        display: flex;
+        flex-direction: column-reverse
+      }
+
+      .apexcharts-tooltip-box>div {
+        margin: 4px 0
+      }
+
+      .apexcharts-tooltip-box span.value {
+        font-weight: 700
+      }
+
+      .apexcharts-tooltip-rangebar {
+        padding: 5px 8px
+      }
+
+      .apexcharts-tooltip-rangebar .category {
+        font-weight: 600;
+        color: #777
+      }
+
+      .apexcharts-tooltip-rangebar .series-name {
+        font-weight: 700;
+        display: block;
+        margin-bottom: 5px
+      }
+
+      .apexcharts-xaxistooltip,.apexcharts-yaxistooltip {
+        opacity: 0;
+        pointer-events: none;
+        color: #373d3f;
+        font-size: 13px;
+        text-align: center;
+        border-radius: 2px;
+        position: absolute;
+        z-index: 10;
+        background: #eceff1;
+        border: 1px solid #90a4ae
+      }
+
+      .apexcharts-xaxistooltip {
+        padding: 9px 10px;
+        transition: .15s ease all
+      }
+
+      .apexcharts-xaxistooltip.apexcharts-theme-dark {
+        background: rgba(0,0,0,.7);
+        border: 1px solid rgba(0,0,0,.5);
+        color: #fff
+      }
+
+      .apexcharts-xaxistooltip:after,.apexcharts-xaxistooltip:before {
+        left: 50%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none
+      }
+
+      .apexcharts-xaxistooltip:after {
+        border-color: transparent;
+        border-width: 6px;
+        margin-left: -6px
+      }
+
+      .apexcharts-xaxistooltip:before {
+        border-color: transparent;
+        border-width: 7px;
+        margin-left: -7px
+      }
+
+      .apexcharts-xaxistooltip-bottom:after,.apexcharts-xaxistooltip-bottom:before {
+        bottom: 100%
+      }
+
+      .apexcharts-xaxistooltip-top:after,.apexcharts-xaxistooltip-top:before {
+        top: 100%
+      }
+
+      .apexcharts-xaxistooltip-bottom:after {
+        border-bottom-color: #eceff1
+      }
+
+      .apexcharts-xaxistooltip-bottom:before {
+        border-bottom-color: #90a4ae
+      }
+
+      .apexcharts-xaxistooltip-bottom.apexcharts-theme-dark:after,.apexcharts-xaxistooltip-bottom.apexcharts-theme-dark:before {
+        border-bottom-color: rgba(0,0,0,.5)
+      }
+
+      .apexcharts-xaxistooltip-top:after {
+        border-top-color: #eceff1
+      }
+
+      .apexcharts-xaxistooltip-top:before {
+        border-top-color: #90a4ae
+      }
+
+      .apexcharts-xaxistooltip-top.apexcharts-theme-dark:after,.apexcharts-xaxistooltip-top.apexcharts-theme-dark:before {
+        border-top-color: rgba(0,0,0,.5)
+      }
+
+      .apexcharts-xaxistooltip.apexcharts-active {
+        opacity: 1;
+        transition: .15s ease all
+      }
+
+      .apexcharts-yaxistooltip {
+        padding: 4px 10px
+      }
+
+      .apexcharts-yaxistooltip.apexcharts-theme-dark {
+        background: rgba(0,0,0,.7);
+        border: 1px solid rgba(0,0,0,.5);
+        color: #fff
+      }
+
+      .apexcharts-yaxistooltip:after,.apexcharts-yaxistooltip:before {
+        top: 50%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none
+      }
+
+      .apexcharts-yaxistooltip:after {
+        border-color: transparent;
+        border-width: 6px;
+        margin-top: -6px
+      }
+
+      .apexcharts-yaxistooltip:before {
+        border-color: transparent;
+        border-width: 7px;
+        margin-top: -7px
+      }
+
+      .apexcharts-yaxistooltip-left:after,.apexcharts-yaxistooltip-left:before {
+        left: 100%
+      }
+
+      .apexcharts-yaxistooltip-right:after,.apexcharts-yaxistooltip-right:before {
+        right: 100%
+      }
+
+      .apexcharts-yaxistooltip-left:after {
+        border-left-color: #eceff1
+      }
+
+      .apexcharts-yaxistooltip-left:before {
+        border-left-color: #90a4ae
+      }
+
+      .apexcharts-yaxistooltip-left.apexcharts-theme-dark:after,.apexcharts-yaxistooltip-left.apexcharts-theme-dark:before {
+        border-left-color: rgba(0,0,0,.5)
+      }
+
+      .apexcharts-yaxistooltip-right:after {
+        border-right-color: #eceff1
+      }
+
+      .apexcharts-yaxistooltip-right:before {
+        border-right-color: #90a4ae
+      }
+
+      .apexcharts-yaxistooltip-right.apexcharts-theme-dark:after,.apexcharts-yaxistooltip-right.apexcharts-theme-dark:before {
+        border-right-color: rgba(0,0,0,.5)
+      }
+
+      .apexcharts-yaxistooltip.apexcharts-active {
+        opacity: 1
+      }
+
+      .apexcharts-yaxistooltip-hidden {
+        display: none
+      }
+
+      .apexcharts-xcrosshairs,.apexcharts-ycrosshairs {
+        pointer-events: none;
+        opacity: 0;
+        transition: .15s ease all
+      }
+
+      .apexcharts-xcrosshairs.apexcharts-active,.apexcharts-ycrosshairs.apexcharts-active {
+        opacity: 1;
+        transition: .15s ease all
+      }
+
+      .apexcharts-ycrosshairs-hidden {
+        opacity: 0
+      }
+
+      .apexcharts-selection-rect {
+        cursor: move
+      }
+
+      .svg_select_boundingRect,.svg_select_points_rot {
+        pointer-events: none;
+        opacity: 0;
+        visibility: hidden
+      }
+
+      .apexcharts-selection-rect+g .svg_select_boundingRect,.apexcharts-selection-rect+g .svg_select_points_rot {
+        opacity: 0;
+        visibility: hidden
+      }
+
+      .apexcharts-selection-rect+g .svg_select_points_l,.apexcharts-selection-rect+g .svg_select_points_r {
+        cursor: ew-resize;
+        opacity: 1;
+        visibility: visible
+      }
+
+      .svg_select_points {
+        fill: #efefef;
+        stroke: #333;
+        rx: 2
+      }
+
+      .apexcharts-svg.apexcharts-zoomable.hovering-zoom {
+        cursor: crosshair
+      }
+
+      .apexcharts-svg.apexcharts-zoomable.hovering-pan {
+        cursor: move
+      }
+
+      .apexcharts-menu-icon,.apexcharts-pan-icon,.apexcharts-reset-icon,.apexcharts-selection-icon,.apexcharts-toolbar-custom-icon,.apexcharts-zoom-icon,.apexcharts-zoomin-icon,.apexcharts-zoomout-icon {
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+        line-height: 24px;
+        color: #6e8192;
+        text-align: center
+      }
+
+      .apexcharts-menu-icon svg,.apexcharts-reset-icon svg,.apexcharts-zoom-icon svg,.apexcharts-zoomin-icon svg,.apexcharts-zoomout-icon svg {
+        fill: #6e8192
+      }
+
+      .apexcharts-selection-icon svg {
+        fill: #444;
+        transform: scale(.76)
+      }
+
+      .apexcharts-theme-dark .apexcharts-menu-icon svg,.apexcharts-theme-dark .apexcharts-pan-icon svg,.apexcharts-theme-dark .apexcharts-reset-icon svg,.apexcharts-theme-dark .apexcharts-selection-icon svg,.apexcharts-theme-dark .apexcharts-toolbar-custom-icon svg,.apexcharts-theme-dark .apexcharts-zoom-icon svg,.apexcharts-theme-dark .apexcharts-zoomin-icon svg,.apexcharts-theme-dark .apexcharts-zoomout-icon svg {
+        fill: #f3f4f5
+      }
+
+      .apexcharts-canvas .apexcharts-reset-zoom-icon.apexcharts-selected svg,.apexcharts-canvas .apexcharts-selection-icon.apexcharts-selected svg,.apexcharts-canvas .apexcharts-zoom-icon.apexcharts-selected svg {
+        fill: #008ffb
+      }
+
+      .apexcharts-theme-light .apexcharts-menu-icon:hover svg,.apexcharts-theme-light .apexcharts-reset-icon:hover svg,.apexcharts-theme-light .apexcharts-selection-icon:not(.apexcharts-selected):hover svg,.apexcharts-theme-light .apexcharts-zoom-icon:not(.apexcharts-selected):hover svg,.apexcharts-theme-light .apexcharts-zoomin-icon:hover svg,.apexcharts-theme-light .apexcharts-zoomout-icon:hover svg {
+        fill: #333
+      }
+
+      .apexcharts-menu-icon,.apexcharts-selection-icon {
+        position: relative
+      }
+
+      .apexcharts-reset-icon {
+        margin-left: 5px
+      }
+
+      .apexcharts-menu-icon,.apexcharts-reset-icon,.apexcharts-zoom-icon {
+        transform: scale(.85)
+      }
+
+      .apexcharts-zoomin-icon,.apexcharts-zoomout-icon {
+        transform: scale(.7)
+      }
+
+      .apexcharts-zoomout-icon {
+        margin-right: 3px
+      }
+
+      .apexcharts-pan-icon {
+        transform: scale(.62);
+        position: relative;
+        left: 1px;
+        top: 0
+      }
+
+      .apexcharts-pan-icon svg {
+        fill: #fff;
+        stroke: #6e8192;
+        stroke-width: 2
+      }
+
+      .apexcharts-pan-icon.apexcharts-selected svg {
+        stroke: #008ffb
+      }
+
+      .apexcharts-pan-icon:not(.apexcharts-selected):hover svg {
+        stroke: #333
+      }
+
+      .apexcharts-toolbar {
+        position: absolute;
+        z-index: 11;
+        max-width: 176px;
+        text-align: right;
+        border-radius: 3px;
+        padding: 0 6px 2px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center
+      }
+
+      .apexcharts-menu {
+        background: #fff;
+        position: absolute;
+        top: 100%;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        padding: 3px;
+        right: 10px;
+        opacity: 0;
+        min-width: 110px;
+        transition: .15s ease all;
+        pointer-events: none
+      }
+
+      .apexcharts-menu.apexcharts-menu-open {
+        opacity: 1;
+        pointer-events: all;
+        transition: .15s ease all
+      }
+
+      .apexcharts-menu-item {
+        padding: 6px 7px;
+        font-size: 12px;
+        cursor: pointer
+      }
+
+      .apexcharts-theme-light .apexcharts-menu-item:hover {
+        background: #eee
+      }
+
+      .apexcharts-theme-dark .apexcharts-menu {
+        background: rgba(0,0,0,.7);
+        color: #fff
+      }
+
+      @media screen and (min-width:768px) {
+        .apexcharts-canvas:hover .apexcharts-toolbar {
+            opacity: 1
+        }
+      }
+
+      .apexcharts-canvas .apexcharts-element-hidden,.apexcharts-datalabel.apexcharts-element-hidden,.apexcharts-hide .apexcharts-series-points {
+        opacity: 0
+      }
+
+      .apexcharts-hidden-element-shown {
+        opacity: 1;
+        transition: 0.25s ease all;
+      }
+      .apexcharts-datalabel,.apexcharts-datalabel-label,.apexcharts-datalabel-value,.apexcharts-datalabels,.apexcharts-pie-label {
+        cursor: default;
+        pointer-events: none
+      }
+
+      .apexcharts-pie-label-delay {
+        opacity: 0;
+        animation-name: opaque;
+        animation-duration: .3s;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease
+      }
+
+      .apexcharts-annotation-rect,.apexcharts-area-series .apexcharts-area,.apexcharts-area-series .apexcharts-series-markers .apexcharts-marker.no-pointer-events,.apexcharts-gridline,.apexcharts-line,.apexcharts-line-series .apexcharts-series-markers .apexcharts-marker.no-pointer-events,.apexcharts-point-annotation-label,.apexcharts-radar-series path,.apexcharts-radar-series polygon,.apexcharts-toolbar svg,.apexcharts-tooltip .apexcharts-marker,.apexcharts-xaxis-annotation-label,.apexcharts-yaxis-annotation-label,.apexcharts-zoom-rect {
+        pointer-events: none
+      }
+
+      .apexcharts-marker {
+        transition: .15s ease all
+      }
+
+      .resize-triggers {
+        animation: 1ms resizeanim;
+        visibility: hidden;
+        opacity: 0;
+        height: 100%;
+        width: 100%;
+        overflow: hidden
+      }
+
+      .contract-trigger:before,.resize-triggers,.resize-triggers>div {
+        content: " ";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0
+      }
+
+      .resize-triggers>div {
+        height: 100%;
+        width: 100%;
+        background: #eee;
+        overflow: auto
+      }
+
+      .contract-trigger:before {
+        overflow: hidden;
+        width: 200%;
+        height: 200%
+      }
+    </style>
+  </head>
+	<body cz-shortcut-listen="true">
+		<div class="layout has-sidebar fixed-sidebar fixed-header">
+			<div class="loader">
+				<div class="loader__icon"><svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 40 40" enable-background="new 0 0 40 40" xml:space="preserve">
+						<path opacity="0.2" fill="#000" d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"></path>
+						<path fill="#000" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0C22.32,8.481,24.301,9.057,26.013,10.047z"></path>
+						<animatetransform attributeType="xml" attributeName="transform" type="rotate" from="0 20 20" to="360 20 20" dur="0.5s" repeatCount="indefinite"></animatetransform>
+					</svg></div>
+				<div class="loader__tile"></div>
+				<div class="loader__tile"></div>
+				<div class="loader__tile"></div>
+				<div class="loader__tile"></div>
+				<div class="loader__tile"></div>
+			</div>
+<!-- modal menu principal  -->
+<aside id="sidebar" class="sidebar break-point-lg has-bg-image">
+	<div class="image-wrapper">
+		<img src="/escudo_unmsm.png" alt="sidebar background">
+	</div>
+	<div class="sidebar-layout">
+		<div class="sidebar-header">
+			<img src="/logo_sum_header.png" style="margin: auto;" class="white-logo">
+		</div>
+		<div class="sidebar-content">
+			<nav class="menu open-current-submenu">
+				<ul>
+					<li class="menu-item">
+						<a href="/">
+                            <span class="menu-icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+  <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
+  <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>
+</svg>
+                            </span>
+							<span class="menu-title">Inicio</span>
+						</a>
+					</li>
+					<!--
+					<li class="menu-item">
+						<a th:href="@{/v2/encuesta}">
+                            <span class="menu-icon">
+                                <i class="fa-solid fa-square-poll-horizontal"></i>
+                            </span>
+							<span class="menu-title">Encuesta</span>
+						</a>
+					</li>
+					-->
+					<li class="menu-item sub-menu">
+						<a href="#">
+							<span class="menu-icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-fill-gear" viewBox="0 0 16 16">
+  <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4m9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"/>
+</svg>
+							</span>
+							<span class="menu-title">Mi Información</span>
+						</a>
+						<div class="sub-menu-list" style="position: fixed; left: 0px; top: 0px; margin: 0px; visibility: hidden; transform: translate(280px, 149px);" data-popper-escaped="" data-popper-placement="right">
+							<ul>
+								<li class="menu-item">
+									<a href="/alumnoWebSum/v2/informacion/perfil">
+										<span class="menu-title">Mi Perfil</span>
+									</a>
+								</li>
+								<li class="menu-item">
+									<a href="/alumnoWebSum/v2/informacion/historial">
+										<span class="menu-title">Historial Académico</span>
+									</a>
+								</li>
+								<li class="menu-item">
+									<a href="/alumnoWebSum/v2/informacion/formularioDatos">
+										<span class="menu-title">Formulario de Datos</span>
+									</a>
+								</li>
+								<li class="menu-item">
+									<a href="/alumnoWebSum/v2/informacion/fichaSocioeconomica">
+										<span class="menu-title">Ficha Socioeconomica</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="menu-item sub-menu">
+						<a href="#">
+							<span class="menu-icon">
+<svg fill="#fff" width="24" height="24" viewBox="0 -64 640 640" xmlns="http://www.w3.org/2000/svg"><path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h274.9c-2.4-6.8-3.4-14-2.6-21.3l6.8-60.9 1.2-11.1 7.9-7.9 77.3-77.3c-24.5-27.7-60-45.5-99.9-45.5zm45.3 145.3l-6.8 61c-1.1 10.2 7.5 18.8 17.6 17.6l60.9-6.8 137.9-137.9-71.7-71.7-137.9 137.8zM633 268.9L595.1 231c-9.3-9.3-24.5-9.3-33.8 0l-37.8 37.8-4.1 4.1 71.8 71.7 41.8-41.8c9.3-9.4 9.3-24.5 0-33.9z"/></svg>
+							</span>
+							<span class="menu-title">Matrícula</span>
+						</a>
+						<div class="sub-menu-list" style="position: fixed; left: 0px; top: 0px; margin: 0px; visibility: hidden; transform: translate(280px, 199px);" data-popper-escaped="" data-popper-placement="right">
+							<ul>
+								<li class="menu-item">
+									<a href="/alumnoWebSum/v2/matricula/informacion">
+										<span class="menu-title">Matrícula Vía Internet</span>
+									</a>
+								</li>
+								<li class="menu-item">
+									<a href="/alumnoWebSum/v2/matricula/programacion">
+										<span class="menu-title">Programación de Asignaturas</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="menu-item sub-menu">
+						<a href="#">
+							<span class="menu-icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-file-text-fill" viewBox="0 0 16 16">
+  <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2M5 4h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1m-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5M5 8h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1m0 2h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1"/>
+</svg>
+							</span>
+							<span class="menu-title">Reportes</span>
+						</a>
+						<div class="sub-menu-list" style="position: fixed; left: 0px; top: 0px; margin: 0px; visibility: hidden; transform: translate(280px, 249px);" data-popper-escaped="" data-popper-placement="right">
+							<ul>
+								<li class="menu-item">
+									<a href="/alumnoWebSum/v2/reportes/prematricula">
+										<span class="menu-title">Reporte Pre-Matrícula</span>
+									</a>
+								</li>
+								<li class="menu-item">
+									<a href="/alumnoWebSum/v2/reportes/matricula">
+										<span class="menu-title">Reporte Matrícula</span>
+									</a>
+								</li>
+								<li class="menu-item">
+									<a href="/alumnoWebSum/v2/reportes/horarios">
+										<span class="menu-title">Reporte Horario de Asignaturas Matriculadas</span>
+									</a>
+								</li>
+								<li class="menu-item">
+									<a href="/alumnoWebSum/v2/reportes/evaluaciones">
+										<span class="menu-title">Reporte Evaluaciones</span>
+									</a>
+								</li>
+								<li class="menu-item">
+									<a href="/alumnoWebSum/v2/reportes/deudas">
+										<span class="menu-title">Reporte Deudas</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="menu-item">
+						<a href="/alumnoWebSum/v2/asistencia">
+                            <span class="menu-icon">
+<svg fill="#fff" width="24" height="24" viewBox="0 -64 640 640" xmlns="http://www.w3.org/2000/svg"><path d="M496 224c-79.6 0-144 64.4-144 144s64.4 144 144 144 144-64.4 144-144-64.4-144-144-144zm64 150.3c0 5.3-4.4 9.7-9.7 9.7h-60.6c-5.3 0-9.7-4.4-9.7-9.7v-76.6c0-5.3 4.4-9.7 9.7-9.7h12.6c5.3 0 9.7 4.4 9.7 9.7V352h38.3c5.3 0 9.7 4.4 9.7 9.7v12.6zM320 368c0-27.8 6.7-54.1 18.2-77.5-8-1.5-16.2-2.5-24.6-2.5h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h347.1c-45.3-31.9-75.1-84.5-75.1-144zm-96-112c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128z"/></svg>
+                            </span>
+							<span class="menu-title">Mis Asistencias</span>
+						</a>
+					</li>
+					<li class="menu-item">
+						<a href="/alumnoWebSum/v2/tutoria">
+                            <span class="menu-icon">
+<svg fill="#fff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+	 width="24" height="24" viewBox="0 0 77.961 77.96"
+	 xml:space="preserve">
+<g>
+	<path d="M33.597,16.789c0-9.06,7.344-16.404,16.404-16.404s16.403,7.344,16.403,16.404c0,9.059-7.344,16.403-16.403,16.403
+		S33.597,25.848,33.597,16.789z M56.96,34.311H43.041c-5.707,0-10.884,2.295-14.673,6.003h21.866v33.619H39.793
+		c2.729,0.567,2.727,1.338,2.727,2.135c0,0.297,0,0.631-0.256,0.965c3.41,0.382,6.598,0.544,9.549,0.544
+		c15.436,0,24.383-4.402,24.936-4.683l1.097-0.557l0.116,0.001V55.312C77.962,43.732,68.54,34.311,56.96,34.311z M40.227,76.06
+		c0,0.834-6.874,1.51-15.354,1.51c-8.481,0-15.354-0.676-15.354-1.51c0-0.599,3.546-1.111,8.678-1.354v-2.28H0V41.806h47.939v30.619
+		H29.743v2.207C35.834,74.832,40.227,75.394,40.227,76.06z M44.79,69.8V44.168H3.148V69.8H44.79z M11.481,67.73h2.75v-15h-2.75
+		V67.73z M15.606,67.73h2.75V55.943h-2.75V67.73z M19.606,67.73h2.75V48.48h-2.75V67.73z M32.095,67.73h2.75v-15h-2.75V67.73z
+		 M27.97,67.73h2.75V55.943h-2.75V67.73z M23.97,67.73h2.75V50.605h-2.75V67.73z"/>
+</g>
+</svg>
+                            </span>
+							<span class="menu-title">Mi Tutoria</span>
+						</a>
+					</li>
+					<li class="menu-item">
+						<a href="/alumnoWebSum/v2/planEstudios">
+                            <span class="menu-icon">
+<svg fill="#fff" width="24" height="24" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg">
+  <path d="M208.00244,24h-136a32.03667,32.03667,0,0,0-32,32V224a8.00039,8.00039,0,0,0,8,8h144a8,8,0,0,0,0-16h-136a16.01833,16.01833,0,0,1,16-16h136a8.00039,8.00039,0,0,0,8-8V32A8.00039,8.00039,0,0,0,208.00244,24Zm-24,96.001L158.394,100.7998a4.0005,4.0005,0,0,0-4.7998,0L128.00244,119.999V40h56Z"/>
+</svg>
+                            </span>
+							<span class="menu-title">Plan de Estudios</span>
+						</a>
+					</li>
+					
+
+					
+					<li class="menu-item">
+						<a href="/alumnoWebSum/v2/manuales">
+                            <span class="menu-icon">
+<svg width="24" height="24" viewBox="0 -3 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Dribbble-Light-Preview" transform="translate(-300.000000, -7442.000000)" fill="#fff">
+            <g id="icons" transform="translate(56.000000, 160.000000)">
+                <path d="M251.988432,7291.58588 L251.988432,7285.97425 C253.980638,7286.91168 255.523602,7287.8172 257.348463,7288.79353 C255.843351,7289.62824 253.980638,7290.56468 251.988432,7291.58588 M263.090998,7283.18289 C262.747343,7282.73013 262.161634,7282.37809 261.538073,7282.26141 C259.705243,7281.91336 248.270974,7281.91237 246.439141,7282.26141 C245.939097,7282.35515 245.493839,7282.58153 245.111335,7282.93357 C243.49964,7284.42947 244.004664,7292.45151 244.393145,7293.75096 C244.556505,7294.31342 244.767679,7294.71931 245.033639,7294.98558 C245.376298,7295.33761 245.845463,7295.57995 246.384355,7295.68865 C247.893451,7296.0008 255.668037,7296.17532 261.506198,7295.73552 C262.044094,7295.64178 262.520231,7295.39147 262.895762,7295.02447 C264.385932,7293.53455 264.28433,7285.06174 263.090998,7283.18289" id="youtube-[#168]">
+
+</path>
+            </g>
+        </g>
+    </g>
+</svg>
+                            </span>
+							<span class="menu-title">Manuales y Tutoriales</span>
+						</a>
+					</li>
+				
+                    <!--
+                    <li sec:authorize="hasPermission('999','ALL') or hasPermission('96','ALL') or hasPermission('4','ALL') or hasPermission('3','ALL')"
+                        class="menu-item sub-menu">
+                        <a href="#">
+                            <span class="menu-icon">
+                                <i class="far fa-calendar-alt"></i>
+                            </span>
+                            <span class="menu-title">Período Académico</span>
+                            <span class="menu-suffix">🔥</span>
+                        </a>
+
+                    -->
+				</ul>
+			</nav>
+		</div>
+		<!--
+        <div class="sidebar-footer">
+
+        </div>
+        -->
+	</div>
+</aside>
+
+<!--
+<div id="content" class="">
+    <div class="container-fluid">
+        <div class="menu-trigger"></div>
+        <div class="menu-trigger2">
+            <button type="button" class="btn btn-dark">
+                <span id="titleFacultad" th:text="${session.sesionUsuario.codFacultad < 21} ?
+                    |${session.sesionUsuario.codFacultad} - FACULTAD DE ${session.sesionUsuario.desFacultad}| : 'ADMINISTRADOR'"></span>
+            </button>
+        </div>
+        <div layout:fragment="content"></div>
+    </div>
+</div>
+-->
+
+
+			<div id="overlay" class="overlay"></div>
+			<div class="layout">
+		<header class="header">
+			<a id="btn-collapse" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+</svg>
+			</a>
+			<a id="btn-toggle" href="#" class="sidebar-toggler break-point-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+</svg>
+			</a>
+			<div class="d-flex">
+				<div class="timer mt-1 mr-2" data-minutes-left="15">
+              <div class="jst-hours">00:</div>
+              <div class="jst-minutes">14:</div>
+              <div class="jst-seconds">32</div>
+              <div class="jst-clearDiv"></div>
+        </div>
+				<div class="dropdown ml-2 mr-2 dd-hide">
+					<a class="btn btn-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+						<!--<img src="https://img.icons8.com/color/96/000000/user.png" alt="User-Profile-Image" style="width: 15%;">-->
+						<span>FARFAN NAVARRO, DARÌO ALEXANDER</span>
+					</a>
+					<div class="dropdown-menu">
+						<input type="hidden" id="userSession" value="rafael.castellanos1">
+						<a class="dropdown-item" href="/perfil">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+</svg>
+              Perfil
+            </a>
+						<a class="dropdown-item" href="/logout">
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+  <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+</svg>
+Salir</a>
+					</div>
+				</div>
+				<div class="ml-2 mt-1" style="font-size: 15px;">
+					<a href="/logout">
+						<i class="fa fa-power-off"></i> Salir
+					</a>
+				</div>
+			</div>
+
+		</header>
+    <slot>
+			</div>
+		</div>
+
+    <script is:inline type="text/javascript" src="/jquery-3.6.0.min.js"></script>
+		<!-- <script src="https://kit.fontawesome.com/29ddac97ab.js" crossorigin="anonymous"></script> -->
+		<script is:inline type="text/javascript" src="/popper.js"></script>
+		<script is:inline type="text/javascript" src="/public/bootstrap.min.js"></script>
+		<script is:inline type="text/javascript" src="/public/plugins.js"></script>
+		<script is:inline type="text/javascript" src="/public/actions.js"></script>
+		<script is:inline type="text/javascript" src="/public/jquery.bestupper.min.js"></script>
+		<script is:inline type="text/javascript" src="/public/moment.min.js"></script>
+		<!-- <script is:inline type="text/javascript" src="/public/jquery.simple.timer.js"></script> -->
+		<script is:inline type="text/javascript" src="/public/util.js"></script>
+		<script is:inline type="text/javascript" src="/public/layout.js"></script>
+		<script is:inline type="text/javascript" src="/public/main-pro.js"></script><!-- sidebar -->
+
+		<script is:inline src="/bootstrap-notify.min.js"></script>
+
+		<script is:inline src="/jquery.dataTables.min.js"></script>
+		<script is:inline src="/dataTables.bootstrap.min.js"></script>
+		<script is:inline src="/dataTables.responsive.min.js"></script>
+		<script is:inline src="/dataTables.show.rows.js"></script>
+		<script is:inline src="/dataTables.buttons.min.js"></script>
+		<script is:inline src="/bootstrap-notify.min.js"></script>
+		<script is:inline src="/apexcharts.min.js"></script>
+
+		<script is:inline src="/historial.js"></script>
+	
+	
+<svg id="SvgjsSvg1001" width="2" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" style="overflow: hidden; top: -100%; left: -100%; position: absolute; opacity: 0;"><defs id="SvgjsDefs1002"></defs><polyline id="SvgjsPolyline1003" points="0,0"></polyline><path id="SvgjsPath1004" d="M0 0 "></path></svg></body></html>
